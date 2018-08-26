@@ -25,10 +25,6 @@ export default class User extends BaseEntity {
   @Column('text', {nullable:false})
   email: string
 
-  @Length(3)
-  @Column('text')
-  city: string
-
   @IsString()
   @MinLength(8)
   @Column('text', { nullable:true })

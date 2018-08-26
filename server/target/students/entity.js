@@ -12,45 +12,43 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const typeorm_1 = require("typeorm");
 const BaseEntity_1 = require("typeorm/repository/BaseEntity");
 const class_validator_1 = require("class-validator");
-const class_transformer_1 = require("class-transformer");
-const bcrypt = require("bcrypt");
-let User = class User extends BaseEntity_1.BaseEntity {
-    async setPassword(rawPassword) {
-        const hash = await bcrypt.hash(rawPassword, 10);
-        this.password = hash;
-    }
-    checkPassword(rawPassword) {
-        return bcrypt.compare(rawPassword, this.password);
-    }
+const entity_1 = require("../batches/entity");
+const entity_2 = require("../evaluations/entity");
+let Student = class Student extends BaseEntity_1.BaseEntity {
 };
 __decorate([
     typeorm_1.PrimaryGeneratedColumn(),
     __metadata("design:type", Number)
-], User.prototype, "id", void 0);
-__decorate([
-    class_validator_1.Length(2),
-    typeorm_1.Column('text', { nullable: false }),
-    __metadata("design:type", String)
-], User.prototype, "firstName", void 0);
-__decorate([
-    class_validator_1.Length(2),
-    typeorm_1.Column('text', { nullable: false }),
-    __metadata("design:type", String)
-], User.prototype, "lastName", void 0);
-__decorate([
-    class_validator_1.IsEmail(),
-    typeorm_1.Column('text', { nullable: false }),
-    __metadata("design:type", String)
-], User.prototype, "email", void 0);
+], Student.prototype, "id", void 0);
 __decorate([
     class_validator_1.IsString(),
-    class_validator_1.MinLength(8),
-    typeorm_1.Column('text', { nullable: true }),
-    class_transformer_1.Exclude({ toPlainOnly: true }),
+    typeorm_1.Column('text'),
     __metadata("design:type", String)
-], User.prototype, "password", void 0);
-User = __decorate([
+], Student.prototype, "firstName", void 0);
+__decorate([
+    class_validator_1.IsString(),
+    typeorm_1.Column('text'),
+    __metadata("design:type", String)
+], Student.prototype, "lastName", void 0);
+__decorate([
+    class_validator_1.IsString(),
+    typeorm_1.Column('text'),
+    __metadata("design:type", String)
+], Student.prototype, "profilePicture", void 0);
+__decorate([
+    typeorm_1.Column('text', { nullable: true }),
+    __metadata("design:type", String)
+], Student.prototype, "color", void 0);
+__decorate([
+    typeorm_1.ManyToOne(_ => entity_1.Batch, batch => batch.students),
+    __metadata("design:type", entity_1.Batch)
+], Student.prototype, "batch", void 0);
+__decorate([
+    typeorm_1.OneToMany(_ => entity_2.Evaluation, evaluation => evaluation.student, { eager: true }),
+    __metadata("design:type", Array)
+], Student.prototype, "evaluations", void 0);
+Student = __decorate([
     typeorm_1.Entity()
-], User);
-exports.default = User;
+], Student);
+exports.Student = Student;
 //# sourceMappingURL=entity.js.map

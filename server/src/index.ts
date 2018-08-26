@@ -1,15 +1,21 @@
 import 'reflect-metadata'
 import {createKoaServer, Action} from 'routing-controllers'
-import PageController from './pages/controller'
 import UsersController from './users/controller'
 import LoginController from './logins/controller'
 import setupDb from './db'
 import { verify } from './jwt';
+import StudentController from './students/controller';
+import TeacherController from './teachers/controller';
+import EvaluationController from './evaluations/controller';
+import BatchController from './batches/controller';
 
 const app = createKoaServer({
   controllers: [
-    PageController,
+    StudentController,
+    TeacherController,
+    EvaluationController,
     UsersController,
+    BatchController,
     LoginController
   ],
   authorizationChecker: (action: Action) => {

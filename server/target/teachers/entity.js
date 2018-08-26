@@ -14,7 +14,8 @@ const BaseEntity_1 = require("typeorm/repository/BaseEntity");
 const class_validator_1 = require("class-validator");
 const class_transformer_1 = require("class-transformer");
 const bcrypt = require("bcrypt");
-let User = class User extends BaseEntity_1.BaseEntity {
+const entity_1 = require("../evaluations/entity");
+let Teacher = class Teacher extends BaseEntity_1.BaseEntity {
     async setPassword(rawPassword) {
         const hash = await bcrypt.hash(rawPassword, 10);
         this.password = hash;
@@ -26,31 +27,24 @@ let User = class User extends BaseEntity_1.BaseEntity {
 __decorate([
     typeorm_1.PrimaryGeneratedColumn(),
     __metadata("design:type", Number)
-], User.prototype, "id", void 0);
-__decorate([
-    class_validator_1.Length(2),
-    typeorm_1.Column('text', { nullable: false }),
-    __metadata("design:type", String)
-], User.prototype, "firstName", void 0);
-__decorate([
-    class_validator_1.Length(2),
-    typeorm_1.Column('text', { nullable: false }),
-    __metadata("design:type", String)
-], User.prototype, "lastName", void 0);
+], Teacher.prototype, "id", void 0);
 __decorate([
     class_validator_1.IsEmail(),
-    typeorm_1.Column('text', { nullable: false }),
+    typeorm_1.Column('text'),
     __metadata("design:type", String)
-], User.prototype, "email", void 0);
+], Teacher.prototype, "email", void 0);
 __decorate([
     class_validator_1.IsString(),
-    class_validator_1.MinLength(8),
-    typeorm_1.Column('text', { nullable: true }),
+    typeorm_1.Column('text'),
     class_transformer_1.Exclude({ toPlainOnly: true }),
     __metadata("design:type", String)
-], User.prototype, "password", void 0);
-User = __decorate([
+], Teacher.prototype, "password", void 0);
+__decorate([
+    typeorm_1.OneToMany(_ => entity_1.Evaluation, evaluation => evaluation.teacher),
+    __metadata("design:type", Array)
+], Teacher.prototype, "evaluations", void 0);
+Teacher = __decorate([
     typeorm_1.Entity()
-], User);
-exports.default = User;
+], Teacher);
+exports.Teacher = Teacher;
 //# sourceMappingURL=entity.js.map
