@@ -7,7 +7,7 @@ import LogoutPage from './components/log/LogoutPage'
 import BatchList from './components/batches/BatchesList'
 import CreateBatch from './components/batches/CreateBatchPage'
 import BatchDetails from './components/batches/BatchDetails'
-import StudentDetails from './components/students/StudentsDetails'
+import StudentDetails from './components/students/StudentDetails';
 
 
 class App extends Component {
