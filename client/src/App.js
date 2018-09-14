@@ -1,19 +1,30 @@
-import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { Component } from 'react'
+import './App.css'
+import TopBar from './components/TopBar/TopBar'
+import { BrowserRouter as Router, Route, Redirect } from "react-router-dom"
+import LoginForm from './components/log/LoginForm'
+import LogoutPage from './components/log/LogoutPage'
+import BatchList from './components/batches/BatchesList'
+import CreateBatch from './components/batches/CreateBatchPage'
+import BatchDetails from './components/batches/BatchDetails'
+import StudentDetails from './components/students/StudentsDetails'
+
 
 class App extends Component {
   render() {
     return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">Welcome to React</h1>
-        </header>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
-      </div>
+      <Router>
+        <div className="App">
+          <TopBar/>
+          <Route exact path="/login" component={LoginForm} />
+          <Route exact path="/logout" component={LogoutPage} />
+          <Route exact path="/batches" component={BatchList} />
+          <Route exact path="/batch/create" component={CreateBatch} />
+          <Route exact path="/batches/:id" component={BatchDetails} />
+          <Route exact path="/students/:id" component={StudentDetails} />
+          <Route exact path="/" render={ () => <Redirect to="/batch/create" /> } />
+        </div>
+      </Router>
     );
   }
 }
